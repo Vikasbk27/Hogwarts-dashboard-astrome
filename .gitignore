@@ -1,0 +1,38 @@
+# Java / Spring
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
+# Spring Config - Only ignore environment specific files
+application-*.yml
+application-*.properties
+!application.yml
+!application.properties
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / React
+frontend-react/node_modules/
+frontend-react/build/
+frontend-react/dist/
+frontend-react/.env
+frontend-react/.env.local
+frontend-react/.env.development.local
+frontend-react/.env.test.local
+frontend-react/.env.production.local
+
+# Python
+__pycache__/
+*.pyc
+data_gen_client.pyc
