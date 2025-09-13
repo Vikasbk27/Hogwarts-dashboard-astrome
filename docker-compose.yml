@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: hogwarts_postgres
+    environment:
+      POSTGRES_DB: hogwarts
+      POSTGRES_USER: hogwarts_user
+      POSTGRES_PASSWORD: hogwarts_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./springboot-backend
+    container_name: hogwarts_backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/hogwarts
+      SPRING_DATASOURCE_USERNAME: hogwarts_user
+      SPRING_DATASOURCE_PASSWORD: hogwarts_pass
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend-react
+    container_name: hogwarts_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  data-gen:
+    build: ./data_gen
+    container_name: hogwarts_datagen
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
