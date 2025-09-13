@@ -1,4 +1,5 @@
 
+
 # 🏰 Hogwarts Dashboard
 
 A full-stack project that simulates a **live Hogwarts house points leaderboard** ⚡.
@@ -13,12 +14,28 @@ It uses **Spring Boot (backend)**, **React (frontend)**, and a **Python data gen
 * 🌐 REST API + Server Sent Events (SSE) for updates
 * 🎨 React + Recharts for an interactive UI
 * 💾 PostgreSQL for persistence
+* 🐳 **Docker support** for easy setup
 
 ---
 
-## 🛠️ Prerequisites
+## 🌱 Branches
 
-Before running, make sure you have the following installed:
+This repo has multiple branches:
+
+* **`main`** → Standard setup (manual install: Java, Node, Python, Postgres)
+* **`docker`** → Full **Docker Compose setup** (backend, frontend, PostgreSQL, Python generator)
+
+👉 If you want to **run everything with Docker**, switch to the `docker` branch:
+
+```bash
+git checkout docker
+```
+
+---
+
+## 🛠️ Prerequisites (Manual Setup)
+
+If you’re using the `main` branch, make sure you have:
 
 * **Java 21+** → for Spring Boot backend
 * **Maven 3+** → to build/run Spring Boot
@@ -32,7 +49,7 @@ Before running, make sure you have the following installed:
 
 1. Install **PostgreSQL** and **pgAdmin**.
 
-2. Open pgAdmin and create a new database (e.g., `hogwarts`).
+2. Create a new database (e.g., `hogwarts`).
 
 3. Update your `application.yml` in `springboot-backend/src/main/resources/` with DB credentials:
 
@@ -48,13 +65,11 @@ Before running, make sure you have the following installed:
        show-sql: true
    ```
 
-   > ⚠️ Replace `your_pg_username` and `your_pg_password` with your own.
-
 4. Run the backend once → tables will be auto-created by JPA (`Event` entity).
 
 ---
 
-## 🚀 Running the Project
+## 🚀 Running the Project (Manual)
 
 ### 1️⃣ Clone the Repository
 
@@ -63,8 +78,6 @@ git clone https://github.com/Vikasbk27/Hogwarts-dashboard-astrome.git
 cd Hogwrats-dashboard
 ```
 
----
-
 ### 2️⃣ Start Backend (Spring Boot)
 
 ```bash
@@ -72,9 +85,7 @@ cd springboot-backend
 mvn spring-boot:run
 ```
 
-Backend runs at → **[http://localhost:8080](http://localhost:8080)**
-
----
+Backend → [http://localhost:8080](http://localhost:8080)
 
 ### 3️⃣ Start Frontend (React)
 
@@ -84,19 +95,50 @@ npm install
 npm start
 ```
 
-Frontend runs at → **[http://localhost:3000](http://localhost:3000)**
-
----
+Frontend → [http://localhost:3000](http://localhost:3000)
 
 ### 4️⃣ Start Data Generator (Python)
-
-Open a new terminal and run:
 
 ```bash
 python data_gen_client.py
 ```
 
-This script will continuously generate random house points and send them to the backend.
+---
+
+## 🐳 Running with Docker (docker-setup branch)
+
+If you want **everything containerized**:
+
+### 1️⃣ Switch to docker branch
+
+```bash
+git checkout docker
+```
+
+### 2️⃣ Build & start services
+
+```bash
+docker-compose up --build
+```
+
+This will start:
+
+* **Backend** → `http://localhost:8080`
+* **Frontend** → `http://localhost:3000`
+* **Postgres DB** → exposed on port `5432`
+* **Python Data Generator** → runs automatically and feeds events
+
+### 3️⃣ Check running containers
+
+```bash
+docker ps
+```
+
+### 4️⃣ Stop services
+
+```bash
+docker-compose down
+```
 
 ---
 
@@ -116,8 +158,6 @@ This script will continuously generate random house points and send them to the 
 * Houses represented with icons 🦁 🐍 🐦 🦡
 
 ---
-
-
 
 ## 👨‍💻 Author
 
